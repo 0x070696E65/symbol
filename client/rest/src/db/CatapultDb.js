@@ -204,6 +204,8 @@ class CatapultDb {
 	 * Retrieves filtered and paginated blocks.
 	 * @param {Uint8Array} signerPublicKey Filters by signer public key
 	 * @param {Uint8Array} beneficiaryAddress Filters by beneficiary address
+	 * @param {uint64} fromTimestamp Filters by fromTimestamp
+	 * @param {uint64} toTimestamp Filters by toTimestamp
 	 * @param {object} options Options for ordering and pagination. Can have an `offset`, and must contain the `sortField`, `sortDirection`,
 	 * `pageSize` and `pageNumber`. 'sortField' must be within allowed 'sortingOptions'.
 	 * @returns {Promise.<object>} Blocks page.
@@ -230,11 +232,9 @@ class CatapultDb {
 			conditions['block.timestamp'] = {};
 			if (undefined !== fromTimestamp)
 				conditions['block.timestamp'].$gte = convertToLong(fromTimestamp);
-				
 			if (undefined !== toTimestamp)
-					conditions['block.timestamp'].$lte = convertToLong(toTimestamp);
+				conditions['block.timestamp'].$lte = convertToLong(toTimestamp);
 		}
-		
 		const removeFields = ['meta.transactionMerkleTree', 'meta.statementMerkleTree'];
 
 		const sortConditions = { [sortingOptions[options.sortField]]: options.sortDirection };

@@ -38,7 +38,7 @@ module.exports = {
 
 			const fromTimestamp = params.fromTimestamp ? routeUtils.parseArgument(params, 'fromTimestamp', 'uint64') : undefined;
 			const toTimestamp = params.toTimestamp ? routeUtils.parseArgument(params, 'toTimestamp', 'uint64') : undefined;
-			
+
 			const offsetParsers = {
 				id: 'objectId',
 				height: 'uint64'
